@@ -1,3 +1,5 @@
+import json
+
 
 class dashboard(object):
 
@@ -6,7 +8,7 @@ class dashboard(object):
             "id": None,
             "title": "",
             "originalTitle": "",
-            "tags": ['dpfprofiles'],
+            "tags": [''],
             "style": "dark",
             "timezone": "browser",
             "editable": True,
@@ -43,11 +45,12 @@ class dashboard(object):
 
     def get(self):
         ret_val = dict(self.struct)
-        ret_val['rows'] = [i.get() for i in self.rows]
+        ret_val['rows'] = [i.get() for i in  self.rows]
         ret_val['templating']['list'] = [i.get() for i in self.templates]
         return ret_val
 
-
+    def get_json(self):
+        return json.dumps(self.get(), sort_keys=True, indent=4)
 
 class template(object):
     def __init__(self, querytype='query'):
@@ -124,9 +127,6 @@ class template(object):
         ret_val = dict(self.struct)
         return ret_val
 
-
-
-
 class row(object):
     def __init__(self, indexStart = 1, title = 'Row', height="250px", max_span=12):
         self.struct = {
@@ -175,8 +175,6 @@ class row(object):
 
         return panels
 
-
-
 class panel(object):
 
     def __init__(self):
@@ -217,8 +215,6 @@ class text(panel):
     def set_html(self, text):
         self.struct['mode'] = "html"
         self.struct['content'] = text
-
-
 
 class graph(panel):
 
@@ -292,8 +288,9 @@ class graph(panel):
             print 'noRefNumbersLeft'
             return False
 
-        target = {'refId': chr(self.refidCounter), "target": gentarget}
-        self.targets.append(target)
+        # target = {'refId': chr(self.refidCounter), "target": gentarget}
+        # self.targets.append(target)
+        self.targets.append(gentarget)
 
         self.refidCounter += 1
 
@@ -331,4 +328,78 @@ class graph(panel):
         self.struct['yaxes'][yaxis]['min'] = min
         self.struct['yaxes'][yaxis]['max'] = max
 
+
+class target(object):
+    def __init__(self, refId='A'):
+        self.refId = refId
+
+
+class tgt_infux(target):
+    def __init__(self, measurement, refId='A'):
+        super(tgt_infux, self).__init__(refId)
+        
+        self.struct = {
+            'dsType': 'influxdb',
+            'measurement': measurement,
+            'policy': 'default',
+            'refId': self.refId,
+            'resultFormat': "time_series",
+            'groupBy': list(),
+            'select': list(),
+            'tags': list(),
+            'alias': ''
+        }
+        self.selects = list()
+
+        self.add_groupby(grouptype='time', parameter=['$_interval'])
+        self.add_groupby(grouptype='fill', parameter=['linear'])
+
+
+    def add_tag(self, key, value, operator = '='):
+        self.struct['tags'].append({'key': key, 'operator': operator, 'value': value})
+
+    def add_groupby(self, grouptype, parameter = []):
+        res = self.mod_groupby(grouptype, parameter)
+        if not res:
+            self.struct['groupBy'].append({'type': grouptype, 'params': parameter})
+    
+    def mod_groupby(self, grouptype, parameter = []):
+        for extype in self.struct['groupBy']:
+            if extype['type'] == grouptype:
+                extype['type']['params'] = parameter
+                return True
+        return False
+
+    def add_select(self, select):
+        self.selects.append(select)
+
+    def get(self):
+        self.struct['select'] = list()
+
+        for i in self.selects:
+            self.struct['select'].append(i.get())
+        return self.struct
+
+
+class influx_select(object):
+    def __init__(self, field):
+        self.struct = list()
+        self.struct.append({'type': "field", 'params': [field]})
+        self.struct.append({'type': "mean", 'params': []})
+
+    def get(self):
+        return self.struct
+
+
+    def add_func(self, funcname, parameter=[]):
+        res = self.mod_func(funcname, parameter)
+        if not res:
+            self.struct.append({'type': funcname, 'params': parameter})
+    
+    def mod_func(self, funcname, parameter = []):
+        for extype in self.struct:
+            if extype['type'] == funcname:
+                extype['type']['params'] = parameter
+                return True
+        return False
 
