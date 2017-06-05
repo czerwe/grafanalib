@@ -6,6 +6,7 @@ setup(
     name='grafanalib',
     version=grafanalib.__version__,
     packages=['grafanalib'],
+    test_suite="tests",
     install_requires=['requests>=2.8.1', 'click>=6.6'],
     setup_requires=['requests>=2.8.1', 'click>=6.6']
 )

@@ -1,49 +1,121 @@
 import json
 
+class ApiNotUnique(Exception):
+    def __init__(self, message, status=0):
+        super(ApiNotUnique, self).__init__(message, status)
+
+
+GRAPHTOOTIP_DEFAULT = 0
+GRAPHTOOTIP_SHAREDCROSSHAIR = 1
+GRAPHTOOTIP_SHAREDTOOTIP = 2
+
 
 class dashboard(object):
-
+    """
+    Dashboard object
+    
+    :rtype: grafanalib.dashboard.dashboard
+    """
     def __init__(self):
         self.struct = {
-            "id": None,
-            "title": "",
-            "originalTitle": "",
-            "tags": [''],
-            "style": "dark",
-            "timezone": "browser",
+            "annotations": {"list": []},
             "editable": True,
+            "gnetId": None,
+            "graphTooltip": GRAPHTOOTIP_DEFAULT,
             "hideControls": False,
-            "sharedCrosshair": False,
+            "id": None,
+            "links": [],
             "rows": [],
+            "schemaVersion": 14,
+            "style": 'dark',
+            "tags": [''],
+            "templating": {"list": []},
             "time": {"from": "now-3h", "to": "now"},
             "timepicker": {
-                "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m", "30m", "1h", "2h", "1d"],
+                "refresh_intervals": ["10s", "30s", "1m", "5m", "15m", "30m", "1h", "2h", "1d"],
                 "time_options": [ "5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
             },
-            "templating": {"list": []},
-            "annotations": {"list": []},
-            "schemaVersion": 8,
+            "timezone": "browser",
+            "title": "",
             "version": 0,
-            "links": []
         }
 
         self.rows = list()
         self.templates  = list()
 
 
+    def __enter__(self):
+        return self
+
+
+    def __exit__(self, *args):
+        pass
+
+
     def add_row(self, genrow):
+        """
+        Add an row to the dashboard.
+        
+        :param genrow: row object
+        :type genrow: grafanalib.dashboard.row
+        
+        :return: None
+        :rtype: None
+        """
         self.rows.append(genrow)
 
 
     def set_title(self, title):
+        """
+        Alter the title of the Dashboard.
+        
+        :param title: New title
+        :type title: str
+        
+        :return: None
+        :rtype: None
+        """
         for i in ['title', 'originalTitle']:
             self.struct[i] = title
-        return False
+        # return False
+
+    def set_tooltip(self, tooltipnum):
+        """
+        Set the Dashboard shared Tooltip setting.
+        0 = default; 1 = shared crosshair; 2 = shared tooltip
+        
+        :param title: Value for the tooltip.
+        :type title: int
+        
+        :return: success bool
+        :rtype: bool
+        """
+        if tooltipnum in [0, 1, 2]:
+            self.struct['graphTooltip'] = tooltipnum
+            return True
+        else:
+            return False
+
 
     def add_template(self, template):
+        """
+        Add a template to the Dashboard.
+        
+        :param template: template object
+        :type template: grafanalib.dashboard.row
+        
+        :return: None
+        :rtype: None
+        """
         self.templates.append(template)
 
     def get(self):
+        """
+        Returns the constructed dashboard as dictionary.
+        
+        :return: Generated Dashboard dictionary
+        :rtype: dict
+        """
         ret_val = dict(self.struct)
         ret_val['rows'] = [i.get() for i in  self.rows]
         ret_val['templating']['list'] = [i.get() for i in self.templates]
@@ -51,6 +123,19 @@ class dashboard(object):
 
     def get_json(self):
         return json.dumps(self.get(), sort_keys=True, indent=4)
+
+    def set_refresh(self, rate):
+        available_intervals = self.struct['timepicker'].get('refresh_intervals', list())
+        if rate in available_intervals:
+            self.struct['refresh'] = rate
+            #TODO make a proper exception
+            return True
+        else:
+            return False
+
+
+
+
 
 class template(object):
     def __init__(self, querytype='query'):
@@ -128,6 +213,21 @@ class template(object):
         return ret_val
 
 class row(object):
+    """
+    row object
+    
+    :param indexStart: index of the first panel of the row
+    :type indexStart: int
+    :param title: Title of the row
+    :type title: str
+    :param height: Height in pixel (250px)
+    :type height: str
+    :param max_span: Maximum span of the row, needs for autocalculate the span of each panel
+    :type max_span: int
+        
+    :rtype: grafanalib.dashboard.row
+    """
+
     def __init__(self, indexStart = 1, title = 'Row', height="250px", max_span=12):
         self.struct = {
             "collapse": False,
@@ -143,9 +243,23 @@ class row(object):
 
 
     def getNextIndex(self):
+        """
+        Returns and index that is calulated by the startIndex and amount of panels
+        
+        :return: New index number
+        :rtype: int
+        """
         return int(self.indexStart + len(self.panels))
 
+
     def add_panel(self, genpanel):
+        """
+        Add an panel
+
+        :param genpanel: The Panel or an child instance
+        :type genpanel: grafanalib.dashboard.panel
+
+        """
         if len(self.panels) == 12:
             print "Can't take any more panels"
             return False
@@ -154,11 +268,25 @@ class row(object):
 
 
     def get(self):
+        """
+        Returns the constructed dashboard as dictionary.
+        
+        :return: Generated Dashboard dictionary
+        :rtype: dict
+        """
         ret_val = dict(self.struct)
         ret_val['panels'] = self.recaluclate_span([i.get() for i in self.panels])
         return ret_val
 
+
     def recaluclate_span(self, panels):
+        """
+        The span for each panel will be recaculated if not stated otherwise. The span will be entered into the panel objects
+        
+        :param panels: list of panels
+        :type panels: grafanalib.dashboard.panel
+
+        """
         amount_of_panels = len(panels)
         if not len(panels) == 0:
             remains = 12 % amount_of_panels
@@ -174,6 +302,8 @@ class row(object):
             panels[0]['span'] += remains
 
         return panels
+
+
 
 class panel(object):
 
@@ -192,6 +322,8 @@ class panel(object):
 
     def is_spanned(self):
         return self.manually_spaned
+
+
 
 class text(panel):
 
@@ -215,6 +347,8 @@ class text(panel):
     def set_html(self, text):
         self.struct['mode'] = "html"
         self.struct['content'] = text
+
+
 
 class graph(panel):
 
@@ -309,8 +443,6 @@ class graph(panel):
         self.struct['grid'][key] = value
 
 
-
-
     def display_y_as(self, display_type='short', yaxis=0):
         # print yaxis
         self.struct['yaxes'][yaxis]['format'] = display_type
@@ -329,9 +461,12 @@ class graph(panel):
         self.struct['yaxes'][yaxis]['max'] = max
 
 
+
 class target(object):
     def __init__(self, refId='A'):
         self.refId = refId
+
+
 
 
 class tgt_infux(target):
@@ -351,7 +486,7 @@ class tgt_infux(target):
         }
         self.selects = list()
 
-        self.add_groupby(grouptype='time', parameter=['$_interval'])
+        self.add_groupby(grouptype='time', parameter=['$__interval'])
         self.add_groupby(grouptype='fill', parameter=['linear'])
 
 
@@ -379,6 +514,7 @@ class tgt_infux(target):
         for i in self.selects:
             self.struct['select'].append(i.get())
         return self.struct
+
 
 
 class influx_select(object):
