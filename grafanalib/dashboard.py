@@ -79,6 +79,7 @@ class dashboard(object):
             self.struct[i] = title
         # return False
 
+
     def set_tooltip(self, tooltipnum):
         """
         Set the Dashboard shared Tooltip setting.
@@ -109,6 +110,7 @@ class dashboard(object):
         """
         self.templates.append(template)
 
+
     def get(self):
         """
         Returns the constructed dashboard as dictionary.
@@ -117,12 +119,21 @@ class dashboard(object):
         :rtype: dict
         """
         ret_val = dict(self.struct)
+        indexStart = 1
+        # print 'getme'/
+        for i in  self.rows:
+            i.setNextStart(indexStart)
+            indexStart = indexStart + len(i.panels)
+            # print indexStart
+
         ret_val['rows'] = [i.get() for i in  self.rows]
         ret_val['templating']['list'] = [i.get() for i in self.templates]
         return ret_val
 
+
     def get_json(self):
         return json.dumps(self.get(), sort_keys=True, indent=4)
+
 
     def set_refresh(self, rate):
         available_intervals = self.struct['timepicker'].get('refresh_intervals', list())
@@ -240,6 +251,16 @@ class row(object):
         self.panels = list()
 
         self.max_span = max_span
+
+
+    def setNextStart(self, indexStart):
+        """
+        Set the start index new.
+        
+        :param indexStart: New index start number
+        :type indexStart: int
+        """
+        self.indexStart = indexStart
 
 
     def getNextIndex(self):
@@ -523,6 +544,7 @@ class influx_select(object):
         self.struct.append({'type': "field", 'params': [field]})
         self.struct.append({'type': "mean", 'params': []})
 
+
     def get(self):
         return self.struct
 
@@ -532,10 +554,14 @@ class influx_select(object):
         if not res:
             self.struct.append({'type': funcname, 'params': parameter})
     
+
     def mod_func(self, funcname, parameter = []):
+        if not type(parameter) ==  list:
+            return False
+
         for extype in self.struct:
             if extype['type'] == funcname:
-                extype['type']['params'] = parameter
+                extype['params'] = parameter
                 return True
         return False
 

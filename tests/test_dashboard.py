@@ -33,7 +33,7 @@ class dashboard_tests(unittest2.TestCase):
 
 
 
-    def test_dashboard_2row(self):
+    def test_dashboard_autoindexrows(self):
         row1 = grafanalib.dashboard.row()
         row2 = grafanalib.dashboard.row()
         row3 = grafanalib.dashboard.row()
@@ -54,12 +54,11 @@ class dashboard_tests(unittest2.TestCase):
         row2.add_panel(graph2)
         row5.add_panel(graph3)
 
-        self.assertEqual(self.dashboard.get()['rows'][0]['panels'][0]['id'], 1)
-        self.assertEqual(self.dashboard.get()['rows'][1]['panels'][0]['id'], 2)
-        self.assertEqual(self.dashboard.get()['rows'][4]['panels'][0]['id'], 3)
+        dashboarddict = self.dashboard.get()
 
-        # self.assertEqual(self.dashboard.get()['rows']['panels'][0]['index'], 5)
-
+        self.assertEqual(dashboarddict['rows'][0]['panels'][0]['id'], 1)
+        self.assertEqual(dashboarddict['rows'][1]['panels'][0]['id'], 2)
+        self.assertEqual(dashboarddict['rows'][4]['panels'][0]['id'], 3)
 
 
 
