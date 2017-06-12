@@ -3,8 +3,6 @@ import json
 import sys
 import urllib
 
-import click
-
 class InvalidAuth(Exception):
     def __init__(self, message, status=0):
         super(InvalidAuth, self).__init__(message, status)
