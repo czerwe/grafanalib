@@ -10,14 +10,12 @@ class InvalidAuth(Exception):
 
 class api(object):
 
-    def __init__(self, key, host, port = 3000):
+    def __init__(self, host, port = 3000):
         self.grafana_host = host
         self.grafana_port = port
         self.api_url = 'http://{host}:{port}/api'.format(host=self.grafana_host, port=self.grafana_port)
         self.request_headers = dict()
         self.auth = tuple()
-        if len(key) > 0:
-            self.authKey(key)
         
 
     def authBasic(self, username, password):
@@ -46,15 +44,35 @@ class api(object):
         return True
 
     def datasources_get(self):
+        """
+        Queryies the existing datasources from grafana instance.
+        
+        :param genrow: row object
+        :type genrow: grafanalib.dashboard.row
+        
+        :return: list of existing datasources.
+        :rtyp: list
+        """
         url = self.gen_url(endpoint='datasources')
         response = requests.get(url, headers=self.request_headers, auth=self.auth)
 
         if self.check_response(response):
             return response.json()
         else:
-            return False
+            return dict()
 
     def datasource_update(self, ident, data):
+        """
+        Udates an specific datasource.
+        
+        :param ident: id of datasources
+        :type ident: int
+        :param data: Full datasource definition
+        :type data: dict
+        
+        :return: list of existing datasources.
+        :rtyp: list
+        """
         url = self.gen_url(endpoint='datasources', options=ident)
         response = requests.put(url, json=data, headers=self.request_headers, auth=self.auth)
 

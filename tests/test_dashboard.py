@@ -83,3 +83,17 @@ class row_tests(unittest2.TestCase):
         self.assertEqual(len(self.row.get()['panels']), 1)
 
 
+    def test_mock1(self):
+        import mock
+        import resonses
+
+
+        hollei = mock.Mock()
+        hollei.getme.return_value = 'hollei'
+        print hollei.getme()
+
+
+        hollei.getme2.side_effect = ['hollei', resonses.resp]
+        print hollei.getme2()
+        print hollei.getme2()
+        print hollei.getme2()
