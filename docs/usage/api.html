@@ -93,10 +93,11 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">api</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#authetification">Authetification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#auth">Auth</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasource.html">Creating an Datasource</a></li>
 <li class="toctree-l1"><a class="reference internal" href="createdashboard.html">Creating an Dashboard</a></li>
 </ul>
 
@@ -163,20 +164,27 @@
             
   <div class="section" id="api">
 <h1>api<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="literal-block-wrapper docutils container" id="api-init">
+<div class="code-block-caption"><span class="caption-text">Core api initialisation</span><a class="headerlink" href="#api-init" title="Permalink to this code">¶</a></div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">grafanalib</span>
 
 <span class="n">grafanaapi</span> <span class="o">=</span> <span class="n">grafanalib</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="s1">&#39;grafanahost.local&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="authetification">
-<h2>Authetification<a class="headerlink" href="#authetification" title="Permalink to this headline">¶</a></h2>
-<p>Via API key (must be created via GUI)</p>
+</div>
+<div class="section" id="auth">
+<h2>Auth<a class="headerlink" href="#auth" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="api-key-login">
+<div class="code-block-caption"><span class="caption-text">Via API key (must be created via GUI)</span><a class="headerlink" href="#api-key-login" title="Permalink to this code">¶</a></div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">grafanapi</span><span class="o">.</span><span class="n">authKey</span><span class="p">(</span><span class="s1">&#39;kasdfadsfoiasdjfpoaiusdf0977098&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Via basic login with username and password</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="basic-auth-login">
+<div class="code-block-caption"><span class="caption-text">Via basic login with username and password</span><a class="headerlink" href="#basic-auth-login" title="Permalink to this code">¶</a></div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">grafanapi</span><span class="o">.</span><span class="n">authBasic</span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;secret&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>

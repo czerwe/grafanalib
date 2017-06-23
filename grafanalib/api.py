@@ -63,9 +63,9 @@ class api(object):
 
     def datasource_update(self, ident, data):
         """
-        Udates an specific datasource.
+        Udates a specific datasource.
         
-        :param ident: id of datasources
+        :param ident: id of datasource
         :type ident: int
         :param data: Full datasource definition
         :type data: dict
@@ -83,6 +83,15 @@ class api(object):
 
   
     def datasource_delete(self, ident):
+        """
+        Deletes a specific datasource.
+        
+        :param ident: id of datasource
+        :type ident: int
+        
+        :return: requests respons.
+        :rtyp: list
+        """
         url = self.gen_url(endpoint='datasources', options=ident)
         response = requests.delete(url, headers=self.request_headers, auth=self.auth)
 
@@ -93,6 +102,15 @@ class api(object):
 
   
     def datasource_create(self, data):
+        """
+        creates a specific datasource.
+        
+        :param data: the definition of the datasource
+        :type data: dict
+        
+        :return: requests respons.
+        :rtyp: list
+        """
         url = self.gen_url(endpoint='datasources')
         response = requests.post(url, json=data, headers=self.request_headers, auth=self.auth)
 
