@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>grafanalib.dashboard &mdash; grafanalib 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="grafanalib 0.4.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> grafanalib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/api.html">api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/createdashboard.html">Creating an Dashboard</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">grafanalib</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>grafanalib.dashboard</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/autodoc_index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-grafanalib.dashboard">
+<span id="grafanalib-dashboard"></span><h1>grafanalib.dashboard<a class="headerlink" href="#module-grafanalib.dashboard" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="grafanalib.dashboard.dashboard">
+<em class="property">class </em><code class="descclassname">grafanalib.dashboard.</code><code class="descname">dashboard</code><a class="headerlink" href="#grafanalib.dashboard.dashboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Dashboard object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#grafanalib.dashboard.dashboard" title="grafanalib.dashboard.dashboard">grafanalib.dashboard.dashboard</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="grafanalib.dashboard.dashboard.add_row">
+<code class="descname">add_row</code><span class="sig-paren">(</span><em>genrow</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.dashboard.add_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an row to the dashboard.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>genrow</strong> (<a class="reference internal" href="#grafanalib.dashboard.row" title="grafanalib.dashboard.row"><em>grafanalib.dashboard.row</em></a>) – row object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.dashboard.add_template">
+<code class="descname">add_template</code><span class="sig-paren">(</span><em>template</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.dashboard.add_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a template to the Dashboard.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>template</strong> (<a class="reference internal" href="#grafanalib.dashboard.row" title="grafanalib.dashboard.row"><em>grafanalib.dashboard.row</em></a>) – template object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.dashboard.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.dashboard.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the constructed dashboard as dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Generated Dashboard dictionary</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.dashboard.set_title">
+<code class="descname">set_title</code><span class="sig-paren">(</span><em>title</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.dashboard.set_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alter the title of the Dashboard.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>title</strong> (<em>str</em>) – New title</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.dashboard.set_tooltip">
+<code class="descname">set_tooltip</code><span class="sig-paren">(</span><em>tooltipnum</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.dashboard.set_tooltip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the Dashboard shared Tooltip setting.
+0 = default; 1 = shared crosshair; 2 = shared tooltip</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>title</strong> (<em>int</em>) – Value for the tooltip.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">success bool</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="grafanalib.dashboard.row">
+<em class="property">class </em><code class="descclassname">grafanalib.dashboard.</code><code class="descname">row</code><span class="sig-paren">(</span><em>indexStart=1</em>, <em>title=’Row’</em>, <em>height=‘250px’</em>, <em>max_span=12</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>row object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>indexStart</strong> (<em>int</em>) – index of the first panel of the row</li>
+<li><strong>title</strong> (<em>str</em>) – Title of the row</li>
+<li><strong>height</strong> (<em>str</em>) – Height in pixel (250px)</li>
+<li><strong>max_span</strong> (<em>int</em>) – Maximum span of the row, needs for autocalculate the span of each panel</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#grafanalib.dashboard.row" title="grafanalib.dashboard.row">grafanalib.dashboard.row</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="grafanalib.dashboard.row.add_panel">
+<code class="descname">add_panel</code><span class="sig-paren">(</span><em>genpanel</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.row.add_panel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an panel</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>genpanel</strong> (<em>grafanalib.dashboard.panel</em>) – The Panel or an child instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.row.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.row.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the constructed dashboard as dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Generated Dashboard dictionary</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.row.getNextIndex">
+<code class="descname">getNextIndex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.row.getNextIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns and index that is calulated by the startIndex and amount of panels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">New index number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.row.recaluclate_span">
+<code class="descname">recaluclate_span</code><span class="sig-paren">(</span><em>panels</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.row.recaluclate_span" title="Permalink to this definition">¶</a></dt>
+<dd><p>The span for each panel will be recaculated if not stated otherwise. The span will be entered into the panel objects</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>panels</strong> (<em>grafanalib.dashboard.panel</em>) – list of panels</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="grafanalib.dashboard.row.setNextStart">
+<code class="descname">setNextStart</code><span class="sig-paren">(</span><em>indexStart</em><span class="sig-paren">)</span><a class="headerlink" href="#grafanalib.dashboard.row.setNextStart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the start index new.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>indexStart</strong> (<em>int</em>) – New index start number</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ernest Czerwonka.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

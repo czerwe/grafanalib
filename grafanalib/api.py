@@ -45,22 +45,34 @@ class api(object):
 
     def datasources_get(self):
         """
-        Returns the datasources.
+        Queryies the existing datasources from grafana instance.
         
         :param genrow: row object
         :type genrow: grafanalib.dashboard.row
         
-        :return: None
-        :rtyp
+        :return: list of existing datasources.
+        :rtyp: list
+        """
         url = self.gen_url(endpoint='datasources')
         response = requests.get(url, headers=self.request_headers, auth=self.auth)
 
         if self.check_response(response):
             return response.json()
         else:
-            return False
+            return dict()
 
     def datasource_update(self, ident, data):
+        """
+        Udates an specific datasource.
+        
+        :param ident: id of datasources
+        :type ident: int
+        :param data: Full datasource definition
+        :type data: dict
+        
+        :return: list of existing datasources.
+        :rtyp: list
+        """
         url = self.gen_url(endpoint='datasources', options=ident)
         response = requests.put(url, json=data, headers=self.request_headers, auth=self.auth)
 
